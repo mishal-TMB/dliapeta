@@ -1,0 +1,186 @@
+:root {
+  --abg: #0f0f0f;
+  --abg2: #161616;
+  --abg3: #1e1e1e;
+  --atext: #e8e8e8;
+  --amuted: #888;
+  --aborder: #2a2a2a;
+  --aaccent: #ffffff;
+  --adanger: #e53e3e;
+  --asuccess: #38a169;
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+
+body.admin-body {
+  background: var(--abg);
+  color: var(--atext);
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── LOGIN ──── */
+.admin-login-wrap {
+  min-height:100vh;
+  display:flex; align-items:center; justify-content:center;
+}
+.admin-login-box {
+  background: var(--abg2);
+  border:1px solid var(--aborder);
+  border-radius:16px;
+  padding:48px 44px;
+  width:100%; max-width:420px;
+  text-align:center;
+}
+.admin-login-title {
+  font-family:'Bebas Neue','Montserrat',sans-serif;
+  font-size:3rem; letter-spacing:8px; color:var(--aaccent);
+  margin-bottom:6px;
+}
+.admin-login-sub { color:var(--amuted); font-size:.85rem; margin-bottom:28px; letter-spacing:1px; }
+
+/* ── LAYOUT ──── */
+.admin-layout {
+  display:grid;
+  grid-template-columns:240px 1fr;
+  min-height:100vh;
+}
+
+/* ── SIDEBAR ──── */
+.admin-sidebar {
+  background: var(--abg2);
+  border-right:1px solid var(--aborder);
+  display:flex; flex-direction:column;
+  padding:24px 0;
+  position:sticky; top:0; height:100vh;
+}
+.admin-sidebar-logo {
+  font-family:'Bebas Neue','Montserrat',sans-serif;
+  font-size:1.8rem; letter-spacing:5px; color:var(--aaccent);
+  padding:0 24px 20px;
+  border-bottom:1px solid var(--aborder);
+  margin-bottom:16px;
+}
+.admin-sidebar-nav {
+  display:flex; flex-direction:column; gap:4px;
+  padding:0 12px;
+  flex:1;
+}
+.admin-nav-link {
+  display:flex; align-items:center; gap:10px;
+  padding:11px 14px;
+  border-radius:8px;
+  color:var(--amuted);
+  font-size:.85rem; font-weight:600;
+  text-decoration:none;
+  letter-spacing:.5px;
+  transition:background .15s, color .15s;
+}
+.admin-nav-link:hover { background:var(--abg3); color:var(--atext); }
+.admin-nav-link.active { background:var(--abg3); color:var(--aaccent); }
+.admin-logout {
+  display:block;
+  padding:14px 26px;
+  color:var(--amuted);
+  font-size:.82rem; font-weight:600;
+  text-decoration:none;
+  border-top:1px solid var(--aborder);
+  transition:color .15s;
+}
+.admin-logout:hover { color:var(--adanger); }
+
+/* ── MAIN ──── */
+.admin-main {
+  padding:36px 44px;
+  overflow-y:auto;
+}
+.admin-topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:28px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--aborder);
+}
+.admin-page-title { font-size:1.4rem; font-weight:700; color:var(--aaccent); }
+
+/* ── FLASH ──── */
+.admin-flash {
+  padding:12px 18px; border-radius:8px;
+  font-size:.88rem; font-weight:600;
+  margin-bottom:20px;
+}
+.admin-flash.error   { background:#2d0000; border:1px solid #5a0000; color:#fc8181; }
+.admin-flash.success { background:#002d14; border:1px solid #00552a; color:#68d391; }
+
+/* ── FORM ──── */
+.admin-form { display:flex; flex-direction:column; gap:16px; }
+.admin-form-wrap { max-width:700px; }
+.admin-label { font-size:.82rem; font-weight:700; color:var(--amuted); letter-spacing:.5px; text-transform:uppercase; }
+.admin-input {
+  width:100%; padding:13px 16px;
+  background:var(--abg3); border:1px solid var(--aborder);
+  border-radius:8px; color:var(--atext);
+  font-family:'Montserrat',sans-serif; font-size:.95rem;
+  transition:border-color .2s;
+}
+.admin-input:focus { outline:none; border-color:#555; }
+.admin-textarea {
+  width:100%; min-height:280px; padding:14px 16px;
+  background:var(--abg3); border:1px solid var(--aborder);
+  border-radius:8px; color:var(--atext);
+  font-family:'Montserrat',sans-serif; font-size:.95rem;
+  resize:vertical; line-height:1.65;
+  transition:border-color .2s;
+}
+.admin-textarea:focus { outline:none; border-color:#555; }
+
+/* ── BUTTONS ──── */
+.admin-btn-primary {
+  display:inline-block; padding:13px 28px;
+  background:var(--aaccent); color:#000;
+  font-family:'Montserrat',sans-serif;
+  font-weight:700; font-size:.9rem;
+  border:none; border-radius:8px;
+  cursor:pointer; text-decoration:none;
+  transition:opacity .15s;
+}
+.admin-btn-primary:hover { opacity:.88; }
+.admin-btn-back {
+  color:var(--amuted); text-decoration:none;
+  font-size:.85rem; font-weight:600;
+  transition:color .15s;
+}
+.admin-btn-back:hover { color:var(--aaccent); }
+
+/* ── NEWS LIST ──── */
+.admin-news-list { display:flex; flex-direction:column; gap:10px; }
+.admin-news-item {
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  background:var(--abg2); border:1px solid var(--aborder);
+  border-radius:10px; padding:16px 20px;
+  transition:border-color .15s;
+}
+.admin-news-item:hover { border-color:#3a3a3a; }
+.admin-news-info { display:flex; flex-direction:column; gap:4px; }
+.admin-news-title { font-size:1rem; font-weight:700; color:var(--atext); }
+.admin-news-date  { font-size:.78rem; color:var(--amuted); }
+.admin-news-actions { display:flex; gap:10px; flex-shrink:0; }
+.admin-btn-edit {
+  padding:8px 16px; border-radius:6px;
+  background:var(--abg3); border:1px solid var(--aborder);
+  color:var(--atext); font-size:.82rem; font-weight:600;
+  text-decoration:none; transition:border-color .15s;
+}
+.admin-btn-edit:hover { border-color:#555; }
+.admin-btn-delete {
+  padding:8px 16px; border-radius:6px;
+  background:rgba(229,62,62,.12); border:1px solid rgba(229,62,62,.3);
+  color:#fc8181; font-size:.82rem; font-weight:600;
+  cursor:pointer; font-family:'Montserrat',sans-serif;
+  transition:background .15s;
+}
+.admin-btn-delete:hover { background:rgba(229,62,62,.22); }
+
+.admin-empty {
+  text-align:center; padding:60px 0;
+  color:var(--amuted); font-size:.95rem;
+}

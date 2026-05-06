@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="section">
+  <div class="container">
+    <div class="gallery-grid">
+      {% for i in range(10) %}
+      <div class="gallery-item">
+        <div class="gallery-ph">Скрин {{ i+1 }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="gallery-hint">Добавьте скриншоты в папку <code>static/images/gallery/</code> и обновите шаблон</p>
+  </div>
+</section>
+
+{% endblock %}

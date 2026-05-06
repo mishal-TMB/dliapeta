@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SNOWIX — {{ 'Редактировать' if item else 'Новая новость' }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-logo">SNOWIX</div>
+      <nav class="admin-sidebar-nav">
+        <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-link">📰 Новости</a>
+        <a href="{{ url_for('admin_news_add') }}" class="admin-nav-link active">➕ Добавить новость</a>
+        <a href="{{ url_for('glavnoe') }}" class="admin-nav-link" target="_blank">🌐 Открыть сайт</a>
+      </nav>
+      <a href="{{ url_for('admin_logout') }}" class="admin-logout">Выйти →</a>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1 class="admin-page-title">{{ 'Редактировать новость' if item else 'Новая новость' }}</h1>
+        <a href="{{ url_for('admin_dashboard') }}" class="admin-btn-back">← Назад</a>
+      </div>
+
+      <div class="admin-form-wrap">
+        <form method="POST" class="admin-form">
+          <label class="admin-label">Заголовок</label>
+          <input type="text" name="title" class="admin-input" required
+            value="{{ item.title if item else '' }}" placeholder="Название новости">
+
+          <label class="admin-label">Текст новости</label>
+          <textarea name="content" class="admin-textarea" required
+            placeholder="Напишите текст новости...">{{ item.content if item else '' }}</textarea>
+
+          <button type="submit" class="admin-btn-primary">
+            {{ 'Сохранить изменения' if item else 'Опубликовать' }}
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

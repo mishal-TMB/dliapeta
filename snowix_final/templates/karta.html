@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="section">
+  <div class="container">
+    <h2 class="s-heading">Карта мира</h2>
+    <p class="s-text">Исследуй мир в реальном времени — постройки, биомы и активные игроки онлайн.</p>
+    <div class="map-wrap">
+      <div class="map-live-badge">● LIVE</div>
+      <iframe src="http://s30.joinserver.xyz:25591" allowfullscreen loading="lazy" title="SNOWIX карта"></iframe>
+      <div class="map-footer-bar">
+        <span>🌐 Карта обновляется в реальном времени</span>
+        <a href="http://s30.joinserver.xyz:25591" target="_blank">Открыть на весь экран ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

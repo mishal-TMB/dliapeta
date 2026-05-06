@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="section">
+  <div class="container">
+    {% if news.items %}
+      <div class="news-list">
+        {% for item in news.items %}
+        <a href="{{ url_for('news_detail', news_id=item.id) }}" class="news-card">
+          <div class="news-card-top">
+            <span class="news-title">{{ item.title }}</span>
+            <span class="news-date">{{ item.formatted_date() }}</span>
+          </div>
+          <p class="news-preview">{{ item.content[:180] }}{% if item.content|length > 180 %}…{% endif %}</p>
+        </a>
+        {% endfor %}
+      </div>
+
+      {% if news.pages > 1 %}
+      <div class="pagination">
+        {% for p in news.iter_pages() %}
+          {% if p %}
+            <a href="?p={{ p }}" class="page-btn {% if p == news.page %}active{% endif %}">{{ p }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    {% else %}
+      <div class="empty-state">
+        <p>Новостей пока нет. Следите за обновлениями!</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
