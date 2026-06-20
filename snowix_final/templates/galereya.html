@@ -4,13 +4,15 @@
 <section class="section">
   <div class="container">
     <div class="gallery-grid">
-      {% for i in range(10) %}
+      {% for img in images %}
       <div class="gallery-item">
-        <div class="gallery-ph">Скрин {{ i+1 }}</div>
+        <img src="{{ url_for('static', filename='images/gallery/' + img) }}" alt="Скриншот">
       </div>
+      {% else %}
+      <p class="s-text">Здесь пока нет скриншотов. Но скоро они появятся!</p>
       {% endfor %}
     </div>
-    <p class="gallery-hint">Добавьте скриншоты в папку <code>static/images/gallery/</code> и обновите шаблон</p>
+    <p class="gallery-hint">Скриншоты находятся в папке <code>static/images/gallery/</code></p>
   </div>
 </section>
 

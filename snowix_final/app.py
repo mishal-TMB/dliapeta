@@ -59,7 +59,11 @@ def news_detail(news_id):
 
 @app.route('/galereya')
 def galereya():
-    return render_template('galereya.html', page='галерея')
+    gallery_dir = os.path.join(app.static_folder, 'images', 'gallery')
+    images = []
+    if os.path.exists(gallery_dir):
+        images = [f for f in os.listdir(gallery_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp'))]
+    return render_template('galereya.html', page='галерея', images=images)
 
 @app.route('/karta')
 def karta():
