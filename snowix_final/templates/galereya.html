@@ -5,15 +5,56 @@
   <div class="container">
     <div class="gallery-grid">
       {% for img in images %}
-      <div class="gallery-item">
+      <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
         <img src="{{ url_for('static', filename='images/gallery/' + img) }}" alt="Скриншот">
       </div>
       {% else %}
       <p class="s-text">Здесь пока нет скриншотов. Но скоро они появятся!</p>
       {% endfor %}
     </div>
-    <p class="gallery-hint">Скриншоты находятся в папке <code>static/images/gallery/</code></p>
+
+    {% if total_pages > 1 %}
+    <div class="pagination">
+      {% if current_page > 1 %}
+      <a href="{{ url_for('galereya', p=current_page-1) }}" class="p-btn">← Назад</a>
+      {% endif %}
+
+      <span class="p-info">Страница {{ current_page }} из {{ total_pages }}</span>
+
+      {% if current_page < total_pages %}
+      <a href="{{ url_for('galereya', p=current_page+1) }}" class="p-btn">Вперед →</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
   </div>
 </section>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="close-lightbox">&times;</span>
+  <img class="lightbox-content" id="lightbox-img">
+</div>
+
+<script>
+function openLightbox(src) {
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  lightbox.style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // Запретить прокрутку
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.style.display = 'none';
+  document.body.style.overflow = 'auto'; // Вернуть прокрутку
+}
+
+// Закрытие по Esc
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape") closeLightbox();
+});
+</script>
 
 {% endblock %}

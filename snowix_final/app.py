@@ -59,11 +59,20 @@ def news_detail(news_id):
 
 @app.route('/galereya')
 def galereya():
+    page = request.args.get('p', 1, type=int)
+    per_page = 8
     gallery_dir = os.path.join(app.static_folder, 'images', 'gallery')
-    images = []
+    all_images = []
     if os.path.exists(gallery_dir):
-        images = [f for f in os.listdir(gallery_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp'))]
-    return render_template('galereya.html', page='галерея', images=images)
+        all_images = sorted([f for f in os.listdir(gallery_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp'))])
+
+    total = len(all_images)
+    pages = (total + per_page - 1) // per_page
+    start = (page - 1) * per_page
+    end = start + per_page
+    images = all_images[start:end]
+
+    return render_template('galereya.html', page='галерея', images=images, current_page=page, total_pages=pages)
 
 @app.route('/karta')
 def karta():
