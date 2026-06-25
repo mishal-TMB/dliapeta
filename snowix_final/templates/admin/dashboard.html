@@ -14,8 +14,9 @@
     <aside class="admin-sidebar">
       <div class="admin-sidebar-logo">SNOWIX</div>
       <nav class="admin-sidebar-nav">
-        <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-link active">📰 Новости</a>
+        <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-link active">📊 Дашборд</a>
         <a href="{{ url_for('admin_news_add') }}" class="admin-nav-link">➕ Добавить новость</a>
+        <a href="{{ url_for('admin_gallery_add') }}" class="admin-nav-link">🖼️ Добавить фото</a>
         <a href="{{ url_for('glavnoe') }}" class="admin-nav-link" target="_blank">🌐 Открыть сайт</a>
       </nav>
       <a href="{{ url_for('admin_logout') }}" class="admin-logout">Выйти →</a>
@@ -24,8 +25,11 @@
     <!-- Main -->
     <main class="admin-main">
       <div class="admin-topbar">
-        <h1 class="admin-page-title">Управление новостями</h1>
-        <a href="{{ url_for('admin_news_add') }}" class="admin-btn-primary">+ Новая новость</a>
+        <h1 class="admin-page-title">Управление контентом</h1>
+        <div class="admin-topbar-btns">
+            <a href="{{ url_for('admin_news_add') }}" class="admin-btn-primary">+ Новая новость</a>
+            <a href="{{ url_for('admin_gallery_add') }}" class="admin-btn-primary">+ Новое фото</a>
+        </div>
       </div>
 
       {% with messages = get_flashed_messages() %}
@@ -34,26 +38,47 @@
         {% endif %}
       {% endwith %}
 
-      {% if news %}
-      <div class="admin-news-list">
-        {% for item in news %}
-        <div class="admin-news-item">
-          <div class="admin-news-info">
-            <span class="admin-news-title">{{ item.title }}</span>
-            <span class="admin-news-date">{{ item.formatted_date() }}</span>
-          </div>
-          <div class="admin-news-actions">
-            <a href="{{ url_for('admin_news_edit', news_id=item.id) }}" class="admin-btn-edit">Редактировать</a>
-            <form method="POST" action="{{ url_for('admin_news_delete', news_id=item.id) }}" onsubmit="return confirm('Удалить новость?')">
-              <button type="submit" class="admin-btn-delete">Удалить</button>
-            </form>
-          </div>
+      <section class="admin-section">
+        <h2 class="admin-section-title">📰 Новости</h2>
+        {% if news %}
+        <div class="admin-news-list">
+            {% for item in news %}
+            <div class="admin-news-item">
+            <div class="admin-news-info">
+                <span class="admin-news-title">{{ item.title }}</span>
+                <span class="admin-news-date">{{ item.formatted_date() }}</span>
+            </div>
+            <div class="admin-news-actions">
+                <a href="{{ url_for('admin_news_edit', news_id=item.id) }}" class="admin-btn-edit">Редактировать</a>
+                <form method="POST" action="{{ url_for('admin_news_delete', news_id=item.id) }}" onsubmit="return confirm('Удалить новость?')">
+                <button type="submit" class="admin-btn-delete">Удалить</button>
+                </form>
+            </div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-      </div>
-      {% else %}
-        <div class="admin-empty">Новостей пока нет. Добавьте первую!</div>
-      {% endif %}
+        {% else %}
+            <div class="admin-empty">Новостей пока нет.</div>
+        {% endif %}
+      </section>
+
+      <section class="admin-section">
+        <h2 class="admin-section-title">🖼️ Галерея</h2>
+        {% if gallery %}
+        <div class="admin-gallery-grid">
+            {% for img in gallery %}
+            <div class="admin-gallery-item">
+                <img src="{{ url_for('static', filename='uploads/' + img.image_file) if not img.image_file.startswith('images/gallery/') else url_for('static', filename=img.image_file) }}" alt="Gallery image">
+                <form method="POST" action="{{ url_for('admin_gallery_delete', image_id=img.id) }}" onsubmit="return confirm('Удалить фото?')">
+                    <button type="submit" class="admin-btn-delete-small">×</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="admin-empty">Галерея пуста.</div>
+        {% endif %}
+      </section>
     </main>
   </div>
 

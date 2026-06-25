@@ -4,25 +4,25 @@
 <section class="section">
   <div class="container">
     <div class="gallery-grid">
-      {% for img in images %}
+      {% for img in images.items %}
       <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
-        <img src="{{ url_for('static', filename='images/gallery/' + img) }}" alt="Скриншот">
+        <img src="{{ url_for('static', filename='uploads/' + img.image_file) if not img.image_file.startswith('images/gallery/') else url_for('static', filename=img.image_file) }}" alt="Скриншот">
       </div>
       {% else %}
       <p class="s-text">Здесь пока нет скриншотов. Но скоро они появятся!</p>
       {% endfor %}
     </div>
 
-    {% if total_pages > 1 %}
+    {% if images.pages > 1 %}
     <div class="pagination">
-      {% if current_page > 1 %}
-      <a href="{{ url_for('galereya', p=current_page-1) }}" class="p-btn">← Назад</a>
+      {% if images.has_prev %}
+      <a href="{{ url_for('galereya', p=images.prev_num) }}" class="p-btn">← Назад</a>
       {% endif %}
 
-      <span class="p-info">Страница {{ current_page }} из {{ total_pages }}</span>
+      <span class="p-info">Страница {{ images.page }} из {{ images.pages }}</span>
 
-      {% if current_page < total_pages %}
-      <a href="{{ url_for('galereya', p=current_page+1) }}" class="p-btn">Вперед →</a>
+      {% if images.has_next %}
+      <a href="{{ url_for('galereya', p=images.next_num) }}" class="p-btn">Вперед →</a>
       {% endif %}
     </div>
     {% endif %}

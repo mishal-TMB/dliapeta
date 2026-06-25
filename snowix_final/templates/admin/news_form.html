@@ -27,7 +27,7 @@
       </div>
 
       <div class="admin-form-wrap">
-        <form method="POST" class="admin-form">
+        <form method="POST" class="admin-form" enctype="multipart/form-data">
           <label class="admin-label">Заголовок</label>
           <input type="text" name="title" class="admin-input" required
             value="{{ item.title if item else '' }}" placeholder="Название новости">
@@ -35,6 +35,19 @@
           <label class="admin-label">Текст новости</label>
           <textarea name="content" class="admin-textarea" required
             placeholder="Напишите текст новости...">{{ item.content if item else '' }}</textarea>
+
+          <label class="admin-label">Дата публикации</label>
+          <input type="datetime-local" name="created_at" class="admin-input"
+            value="{{ item.created_at.isoformat()[:16] if item else '' }}">
+
+          <label class="admin-label">Изображение (превью)</label>
+          {% if item and item.image_file %}
+            <div style="margin-bottom: 10px;">
+              <img src="{{ url_for('static', filename='uploads/' + item.image_file) }}" style="max-width: 200px; border-radius: 8px;">
+              <p style="font-size: 12px; color: #888;">Текущее изображение: {{ item.image_file }}</p>
+            </div>
+          {% endif %}
+          <input type="file" name="image" class="admin-input" accept="image/*">
 
           <button type="submit" class="admin-btn-primary">
             {{ 'Сохранить изменения' if item else 'Опубликовать' }}

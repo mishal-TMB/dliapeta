@@ -243,17 +243,28 @@ body {
 .dl-btn:hover { opacity:.85; }
 
 /* ── NEWS ───────────────────────────────────── */
-.news-list { display:flex; flex-direction:column; gap:14px; }
+.news-list { display:flex; flex-direction:column; gap:20px; }
 .news-card {
-  display:block;
+  display:flex;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius:12px;
-  padding:24px 28px;
+  overflow: hidden;
   text-decoration:none;
   transition: border-color .2s, background .2s;
 }
 .news-card:hover { border-color:#444; background:#1c1c1c; }
+.news-card-image {
+  width: 300px;
+  min-height: 200px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+.news-card-content {
+  padding: 24px 28px;
+  flex: 1;
+}
 .news-card-top {
   display:flex;
   align-items:baseline;
@@ -280,6 +291,8 @@ body {
 .news-full { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:36px 40px; }
 .news-full-header { margin-bottom:24px; border-bottom:1px solid var(--border); padding-bottom:20px; }
 .news-full-title { font-size:clamp(1.3rem,2.5vw,2rem); font-weight:700; color:var(--accent); margin-bottom:8px; }
+.news-full-image { margin-bottom: 30px; border-radius: 12px; overflow: hidden; }
+.news-full-image img { width: 100%; display: block; }
 .news-full-body { font-size:clamp(.85rem,1.2vw,.98rem); color:var(--muted); line-height:1.9; }
 
 /* ── PAGINATION ─────────────────────────────── */

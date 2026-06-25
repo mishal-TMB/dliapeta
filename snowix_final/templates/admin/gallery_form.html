@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SNOWIX — Добавить фото</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-logo">SNOWIX</div>
+      <nav class="admin-sidebar-nav">
+        <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-link active">📰 Дашборд</a>
+        <a href="{{ url_for('glavnoe') }}" class="admin-nav-link" target="_blank">🌐 Открыть сайт</a>
+      </nav>
+      <a href="{{ url_for('admin_logout') }}" class="admin-logout">Выйти →</a>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1 class="admin-page-title">Добавить фото в галерею</h1>
+      </div>
+
+      <div class="admin-form-container">
+        <form method="POST" enctype="multipart/form-data">
+          <div class="admin-form-group">
+            <label>Изображение</label>
+            <input type="file" name="image" required accept="image/*">
+          </div>
+
+          <div class="admin-form-actions">
+            <button type="submit" class="admin-btn-primary">Загрузить</button>
+            <a href="{{ url_for('admin_dashboard') }}" class="admin-btn-secondary">Отмена</a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
