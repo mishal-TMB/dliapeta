@@ -7,11 +7,16 @@
       <div class="news-list">
         {% for item in news.items %}
         <a href="{{ url_for('news_detail', news_id=item.id) }}" class="news-card">
-          <div class="news-card-top">
-            <span class="news-title">{{ item.title }}</span>
-            <span class="news-date">{{ item.formatted_date() }}</span>
+          {% if item.image_file %}
+          <div class="news-card-image" style="background-image: url('{{ url_for('static', filename='uploads/' + item.image_file) }}');"></div>
+          {% endif %}
+          <div class="news-card-content">
+            <div class="news-card-top">
+              <span class="news-title">{{ item.title }}</span>
+              <span class="news-date">{{ item.formatted_date() }}</span>
+            </div>
+            <p class="news-preview">{{ item.content[:180] }}{% if item.content|length > 180 %}…{% endif %}</p>
           </div>
-          <p class="news-preview">{{ item.content[:180] }}{% if item.content|length > 180 %}…{% endif %}</p>
         </a>
         {% endfor %}
       </div>

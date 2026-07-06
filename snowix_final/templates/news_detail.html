@@ -9,6 +9,11 @@
         <h1 class="news-full-title">{{ item.title }}</h1>
         <span class="news-date">{{ item.formatted_date() }}</span>
       </div>
+      {% if item.image_file %}
+      <div class="news-full-image">
+        <img src="{{ url_for('static', filename='uploads/' + item.image_file) }}" alt="{{ item.title }}">
+      </div>
+      {% endif %}
       <div class="news-full-body">
         {{ item.content | replace('\n', '<br>') | safe }}
       </div>

@@ -4,14 +4,57 @@
 <section class="section">
   <div class="container">
     <div class="gallery-grid">
-      {% for i in range(10) %}
-      <div class="gallery-item">
-        <div class="gallery-ph">Скрин {{ i+1 }}</div>
+      {% for img in images.items %}
+      <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+        <img src="{{ url_for('static', filename='uploads/' + img.image_file) if not img.image_file.startswith('images/gallery/') else url_for('static', filename=img.image_file) }}" alt="Скриншот">
       </div>
+      {% else %}
+      <p class="s-text">Здесь пока нет скриншотов. Но скоро они появятся!</p>
       {% endfor %}
     </div>
-    <p class="gallery-hint">Добавьте скриншоты в папку <code>static/images/gallery/</code> и обновите шаблон</p>
+
+    {% if images.pages > 1 %}
+    <div class="pagination">
+      {% if images.has_prev %}
+      <a href="{{ url_for('galereya', p=images.prev_num) }}" class="p-btn">← Назад</a>
+      {% endif %}
+
+      <span class="p-info">Страница {{ images.page }} из {{ images.pages }}</span>
+
+      {% if images.has_next %}
+      <a href="{{ url_for('galereya', p=images.next_num) }}" class="p-btn">Вперед →</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
   </div>
 </section>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="close-lightbox">&times;</span>
+  <img class="lightbox-content" id="lightbox-img">
+</div>
+
+<script>
+function openLightbox(src) {
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  lightbox.style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // Запретить прокрутку
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.style.display = 'none';
+  document.body.style.overflow = 'auto'; // Вернуть прокрутку
+}
+
+// Закрытие по Esc
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape") closeLightbox();
+});
+</script>
 
 {% endblock %}
